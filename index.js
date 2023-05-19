@@ -12,7 +12,7 @@ app.use(cors())
 app.use(express.json())
 
 
-console.log(process.env.DB_PASS)
+
 
 app.get('/', (req, res) => {
     res.send('toy server is running........')
@@ -58,6 +58,13 @@ async function run() {
         app.get('/luxury', async (req, res) => {
             const cursor = luxuryCollection.find();
             const result = await cursor.toArray();
+            res.send(result);
+        });
+
+        app.get('/luxury/:id', async(req, res)=>{
+            const id = req.params.id;
+            const query = {_id: new ObjectId(id)};
+            const result = await luxuryCollection.findOne(query);
             res.send(result);
         })
 
