@@ -92,7 +92,13 @@ async function run() {
             res.send(result);
         })
 
-       
+        app.get('/allToys', async(req, res)=>{
+            const cursor = allToyCollection.find();
+            const result = await cursor.toArray();
+            res.send(result);
+        })
+
+      
 
 
 
