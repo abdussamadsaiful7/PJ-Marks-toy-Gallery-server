@@ -84,6 +84,17 @@ async function run() {
             res.send(result); 
         })
 
+        const allToyCollection = client.db('classicCarDB').collection('allToys');
+        //all toys data from user added;
+        app.post('/allToys', async(req, res)=>{
+            const newToy = req.body;
+            const result = await allToyCollection.insertOne(newToy);
+            res.send(result);
+        })
+
+       
+
+
 
 
         // Send a ping to confirm a successful connection
