@@ -97,13 +97,6 @@ async function run() {
             res.send(result);
         })
 
-
-        app.post('/alltoys', async (req, res) => {
-            const newToy = req.body;
-            const result = await allToyCollection.insertOne(newToy);
-            res.send(result);
-        })
-
         app.get('/alltoys', async (req, res) => {
             const cursor = allToyCollection.find().limit(20);
             // const limit = parseInt(req.query.limit) || 20;
@@ -117,6 +110,20 @@ async function run() {
             const result = await allToyCollection.findOne(query);
             res.send(result);
 
+        })
+
+        app.post('/alltoys', async (req, res) => {
+            const newToy = req.body;
+            const result = await allToyCollection.insertOne(newToy);
+            res.send(result);
+        })
+
+
+        app.delete('/alltoys/:id', async(req, res)=>{
+            const id = req.params.id;
+            const query = {_id: new ObjectId(id)};
+            const result = await allToyCollection.deleteOne(query);
+            res.send(result)
         })
 
 
