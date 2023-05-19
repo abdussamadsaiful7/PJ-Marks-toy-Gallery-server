@@ -44,6 +44,18 @@ async function run() {
         res.send(result);
     })
 
+    //luxury section
+    const luxuryCollection = client.db('classicCarDB').collection('luxury');
+
+    app.get('/luxury', async(req, res)=>{
+        const cursor = luxuryCollection.find();
+        const result = await cursor.toArray();
+        res.send(result);
+    })
+
+    //jeep car section
+   
+
 
 
     // Send a ping to confirm a successful connection
