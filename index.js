@@ -44,9 +44,9 @@ async function run() {
             res.send(result);
         })
 
-        app.get('/classic/:id', async(req, res)=>{
+        app.get('/classic/:id', async (req, res) => {
             const id = req.params.id;
-            const query = {_id: new ObjectId(id)};
+            const query = { _id: new ObjectId(id) };
             const result = await classicCollection.findOne(query);
             res.send(result);
 
@@ -61,9 +61,9 @@ async function run() {
             res.send(result);
         });
 
-        app.get('/luxury/:id', async(req, res)=>{
+        app.get('/luxury/:id', async (req, res) => {
             const id = req.params.id;
-            const query = {_id: new ObjectId(id)};
+            const query = { _id: new ObjectId(id) };
             const result = await luxuryCollection.findOne(query);
             res.send(result);
         })
@@ -77,36 +77,47 @@ async function run() {
             res.send(result);
         })
 
-        app.get('/jeep/:id', async(req, res)=>{
+        app.get('/jeep/:id', async (req, res) => {
             const id = req.params.id;
-            const query = {_id: new ObjectId(id)};
+            const query = { _id: new ObjectId(id) };
             const result = await jeepCollection.findOne(query);
-            res.send(result); 
+            res.send(result);
         })
 
-        const allToyCollection = client.db('classicCarDB').collection('allToys');
+        const allToyCollection = client.db('classicCarDB').collection('alltoys');
         //all toys data from user added;
-        app.post('/allToys', async(req, res)=>{
+
+        app.get('/alltoys', async (req, res) => {
+            console.log(req.query.email);
+            let query={}
+            if(req.query?.email){
+                query = {email: req.query.email}
+            }
+            const result = await allToyCollection.find(query).toArray();
+            res.send(result);
+        })
+
+
+        app.post('/alltoys', async (req, res) => {
             const newToy = req.body;
             const result = await allToyCollection.insertOne(newToy);
             res.send(result);
         })
 
-        app.get('/allToys', async(req, res)=>{
+        app.get('/alltoys', async (req, res) => {
             const cursor = allToyCollection.find().limit(20);
-           // const limit = parseInt(req.query.limit) || 20;
+            // const limit = parseInt(req.query.limit) || 20;
             const result = await cursor.toArray();
             res.send(result);
         })
 
-        app.get('/allToys/:id', async(req, res)=>{
+        app.get('/alltoys/:id', async (req, res) => {
             const id = req.params.id;
-            const query = {_id: new ObjectId(id)};
+            const query = { _id: new ObjectId(id) };
             const result = await allToyCollection.findOne(query);
             res.send(result);
 
         })
-
 
 
 
