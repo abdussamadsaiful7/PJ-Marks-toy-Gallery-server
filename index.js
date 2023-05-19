@@ -93,7 +93,8 @@ async function run() {
         })
 
         app.get('/allToys', async(req, res)=>{
-            const cursor = allToyCollection.find();
+            const cursor = allToyCollection.find().limit(20);
+           // const limit = parseInt(req.query.limit) || 20;
             const result = await cursor.toArray();
             res.send(result);
         })
