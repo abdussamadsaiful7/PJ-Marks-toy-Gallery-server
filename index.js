@@ -89,19 +89,26 @@ async function run() {
 
         app.get('/alltoys', async (req, res) => {
             console.log(req.query.email);
+            const options = {
+                // sort returned documents in ascending order by title (A->Z)
+                sort: { price: 1 },
+                // Include only the `title` and `imdb` fields in each returned document
+                //projection: { _id: 0, price: 1, },
+              };
             let query = {}
             if (req.query?.email) {
-                query = { email: req.query.email }
+                query = {email: req.query.email}
             }
-            const result = await allToyCollection.find(query).toArray();
+            const result = (await allToyCollection.find(query, options).toArray())
+           // console.log(result)
             res.send(result);
         })
 
         app.get('/alltoys', async (req, res) => {
             const cursor = allToyCollection.find().limit(20);
-            // const limit = parseInt(req.query.limit) || 20;
             const result = await cursor.toArray();
             res.send(result);
+           // console.log(cursor)
         })
 
         app.get('/alltoys/:id', async (req, res) => {
