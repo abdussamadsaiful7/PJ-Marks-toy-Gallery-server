@@ -91,9 +91,7 @@ async function run() {
             console.log(req.query.email);
             const options = {
                 // sort returned documents in ascending order by title (A->Z)
-                sort: { price: 1 },
-                // Include only the `title` and `imdb` fields in each returned document
-                //projection: { _id: 0, price: 1, },
+                sort: { price: 1 },  
               };
             let query = {}
             if (req.query?.email) {
